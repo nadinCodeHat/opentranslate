@@ -1,15 +1,23 @@
-#pull lateset
-FROM node:latest
+# pull the base image
+FROM node:alpine
 
-#set working directory
+ENV NODE_ENV development
+
+# set the working direction
 WORKDIR /opentranslate
 
-ENV PATH="./node_modules/.bin:$PATH"
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /opentranslate/node_modules/.bin:$PATH
 
-# copy app
-COPY . .
+# install app dependencies
+COPY package.json ./
 
-RUN npm run build
+COPY package-lock.json ./
+
+RUN npm install
+
+# add app
+COPY . ./
 
 # start app
 CMD ["npm", "start"]
