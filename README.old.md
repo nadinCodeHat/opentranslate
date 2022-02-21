@@ -1,2 +1,0 @@
-# OpenTranslate
-Machine Translation + Docker
