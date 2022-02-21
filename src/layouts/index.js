@@ -1,7 +1,8 @@
 import React from "react";
 import {
-    BrowserRouter as Router, Link
+    BrowserRouter as Router
 } from "react-router-dom";
+import PrimarySearchAppBar from "../components/appbar";
 import routes from "../routes/routes";
 
 
@@ -9,13 +10,7 @@ export default function Layout() {
     return (
         <Router>
             <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                </ul>
-
-                <hr />
+                <PrimarySearchAppBar />
 
                 {/*
             A <Switch> looks through all its children <Route>
