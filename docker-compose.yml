@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/core
+    ports:
+      - 3000:3000
+    image: app:opentranslate
+    container_name: opentranslate-container
+    command: npm start
