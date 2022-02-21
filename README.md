@@ -6,10 +6,6 @@ Machine Translation + Docker
 
 ## Commit Guidelines
 
-#### Goals
-
-- provide better information when browsing the history
-
 ### Format of the commit message
 
 ```
