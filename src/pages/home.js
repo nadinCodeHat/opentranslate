@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MuiGrid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 const Input = styled('input')({
     display: 'none',
@@ -35,7 +35,7 @@ export default function Home() {
     };
 
     const content = (
-        <div style={{ paddingTop: "50px", height: "300px"}}>
+        <div style={{ height: "300px" }}>
             {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
        Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
        Sed malesuada lobortis pretium.`}
@@ -51,44 +51,75 @@ export default function Home() {
         }} >
             <Card
                 sx={{
-                    width: 850,
+                    width: 860,
                     height: 500,
                     flexWrap: 'wrap',
                 }}>
 
+                <div style={{
+                    display: "flex",
+                    padding: "10px",
+                    alignItems: "center",
+                    justifyContent: "space-evenly"
+                }}>
+                    <div style={{ width: 400 }}>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth size="small">
+                                <InputLabel id="demo-simple-select-label">Translate from</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={language}
+                                    label="Translate"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>English</MenuItem>
+                                    <MenuItem value={10}>German</MenuItem>
+                                    <MenuItem value={20}>French</MenuItem>
+                                    <MenuItem value={30}>Greek</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+
+                    <CompareArrowsIcon />
+
+                    <div style={{ width: 400 }}>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth size="small">
+                                <InputLabel id="demo-simple-select-label">Translate to</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={language}
+                                    label="Translate"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>English</MenuItem>
+                                    <MenuItem value={10}>German</MenuItem>
+                                    <MenuItem value={20}>French</MenuItem>
+                                    <MenuItem value={30}>Greek</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                </div>
+
                 <CardContent>
                     <Grid container>
                         <Grid item xs>
-                            <p style={{ fontSize: "16px" }}>English</p>
-
                             {content}
                         </Grid>
 
-                        <Divider orientation="vertical" flexItem>
+                        <Divider orientation="vertical" flexItem >
                         </Divider>
 
                         <Grid item xs>
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullWidth size="small">
-                                    <InputLabel id="demo-simple-select-label">Translate to</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={language}
-                                        label="Translate"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value={10}>German</MenuItem>
-                                        <MenuItem value={20}>French</MenuItem>
-                                        <MenuItem value={30}>Greek</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
                             {content}
                         </Grid>
                     </Grid>
-
                 </CardContent>
+
                 <CardActions>
                     <label htmlFor="text-button-file">
                         <Input accept=".doc,.docx,.pdf" id="text-button-file" multiple type="file" />
