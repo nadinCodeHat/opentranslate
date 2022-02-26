@@ -1,5 +1,5 @@
 # Open Translate
-Machine Translation + Docker
+Neural Machine Translation with React + OpenNMT-tf + Docker
 
 # Setup and installation
 - run ```npm i && npm start``` to start the app
