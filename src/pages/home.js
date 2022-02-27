@@ -43,100 +43,117 @@ export default function Home() {
     );
 
     return (
-        <div style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate( -50%, -50%)"
-        }} >
-            <Card
-                sx={{
-                    width: 860,
-                    height: 500,
-                    flexWrap: 'wrap',
-                }}>
-
-                <div style={{
-                    display: "flex",
-                    padding: "10px",
-                    alignItems: "center",
-                    justifyContent: "space-evenly"
-                }}>
-                    <div style={{ width: 400 }}>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel id="demo-simple-select-label">Translate from</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={language}
-                                    label="Translate"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>English</MenuItem>
-                                    <MenuItem value={10}>German</MenuItem>
-                                    <MenuItem value={20}>French</MenuItem>
-                                    <MenuItem value={30}>Greek</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-
-                    <CompareArrowsIcon />
-
-                    <div style={{ width: 400 }}>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel id="demo-simple-select-label">Translate to</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={language}
-                                    label="Translate"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>English</MenuItem>
-                                    <MenuItem value={10}>German</MenuItem>
-                                    <MenuItem value={20}>French</MenuItem>
-                                    <MenuItem value={30}>Greek</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
+        <div>
+            <div style={{
+                marginTop: "1em",
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "space-between",
+                maxWidth: "65em",
+                margin: "0 auto",
+            }}>
+                <div style={{ width: 500 }}>
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="demo-simple-select-label">Translate from</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={language}
+                                label="Translate"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={10}>English</MenuItem>
+                                <MenuItem value={10}>German</MenuItem>
+                                <MenuItem value={20}>French</MenuItem>
+                                <MenuItem value={30}>Greek</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
                 </div>
 
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs>
-                            {content}
+                <CompareArrowsIcon />
+
+                <div style={{ width: 500 }}>
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="demo-simple-select-label">Translate To</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={language}
+                                label="Translate"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={10}>English</MenuItem>
+                                <MenuItem value={10}>German</MenuItem>
+                                <MenuItem value={20}>French</MenuItem>
+                                <MenuItem value={30}>Greek</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </div>
+            </div>
+            
+            <div style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate( -50%, -50%)",
+                display: "flex",
+                justifyContent: "space-between",
+                maxWidth: "67em",
+                margin: "0 auto",
+            }} >
+                <Card
+                    sx={{
+                        width: 520,
+                        height: 400,
+                        flexWrap: 'wrap',
+                        marginInline: 2
+                    }}>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs>
+                                {content}
+                            </Grid>
                         </Grid>
+                    </CardContent>
 
-                        <Divider orientation="vertical" flexItem >
-                        </Divider>
+                    <CardActions>
+                        <label htmlFor="text-button-file">
+                            <Input accept=".doc,.docx,.pdf" id="text-button-file" multiple type="file" />
+                            <Button variant="text" component="span"
+                                style={{
+                                    textTransform: 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexWrap: 'wrap'
+                                }}>
+                                <CloudUploadIcon />
+                                Upload a .docx, .pdf
+                            </Button>
+                        </label>
+                    </CardActions>
+                </Card>
 
-                        <Grid item xs>
-                            {content}
+                <Card
+                    sx={{
+                        width: 520,
+                        height: 400,
+                        flexWrap: 'wrap',
+                        marginInline: 2
+                    }}>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs>
+                                {content}
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </CardContent>
-
-                <CardActions>
-                    <label htmlFor="text-button-file">
-                        <Input accept=".doc,.docx,.pdf" id="text-button-file" multiple type="file" />
-                        <Button variant="text" component="span"
-                            style={{
-                                textTransform: 'none',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexWrap: 'wrap'
-                            }}>
-                            <CloudUploadIcon />
-                            Upload a .docx, .pdf
-                        </Button>
-                    </label>
-                </CardActions>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 }
