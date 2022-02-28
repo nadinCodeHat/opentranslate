@@ -6,13 +6,13 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MuiGrid from '@mui/material/Grid';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import TextField from '@mui/material/TextField';
 
 const Input = styled('input')({
     display: 'none',
@@ -28,12 +28,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 export default function Home() {
 
-    const [language, setLanguage] = React.useState('');
-
-    const handleChange = (event) => {
-        setLanguage(event.target.value);
-    };
-
     const content = (
         <div style={{ height: "300px" }}>
             {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
@@ -42,10 +36,26 @@ export default function Home() {
         </div>
     );
 
+    const [value, setValue] = React.useState('Controlled');
+    const [translateFromLanguage, setTransFromLanguage] = React.useState('');
+    const [translateToLanguage, setTransToLanguage] = React.useState('');
+    
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
+
+    const handleChangeTranslateFrom = (event) => {
+        setTransFromLanguage(event.target.translateFromLanguage);
+    };
+
+    const handleChangeTranslateTo = (event) => {
+        setTransToLanguage(event.target.translateToLanguage);
+    };
+
     return (
         <div>
             <div style={{
-                marginTop: "1em",
+                marginTop: "1lem",
                 alignItems: "center",
                 display: "flex",
                 justifyContent: "space-between",
@@ -59,9 +69,9 @@ export default function Home() {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={language}
+                                value={translateFromLanguage}
                                 label="Translate"
-                                onChange={handleChange}
+                                onChange={handleChangeTranslateFrom}
                             >
                                 <MenuItem value={10}>English</MenuItem>
                                 <MenuItem value={10}>German</MenuItem>
@@ -81,9 +91,9 @@ export default function Home() {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={language}
+                                value={translateToLanguage}
                                 label="Translate"
-                                onChange={handleChange}
+                                onChange={handleChangeTranslateTo}
                             >
                                 <MenuItem value={10}>English</MenuItem>
                                 <MenuItem value={10}>German</MenuItem>
@@ -94,7 +104,7 @@ export default function Home() {
                     </Box>
                 </div>
             </div>
-            
+
             <div style={{
                 position: "fixed",
                 top: "50%",
@@ -115,7 +125,26 @@ export default function Home() {
                     <CardContent>
                         <Grid container>
                             <Grid item xs>
-                                {content}
+                                <Box
+                                    component="form"
+                                    sx={{
+                                        '& .MuiTextField-root': { width: '60ch' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <div>
+                                        <TextField
+                                            id="outlined-multiline-flexible"
+                                            label="Multiline"
+                                            multiline
+                                            maxRows={10}
+                                            value={value}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+
+                                </Box>
                             </Grid>
                         </Grid>
                     </CardContent>
