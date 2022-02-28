@@ -27,6 +27,22 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 }));
 
 export default function Home() {
+    
+    const [value, setValue] = React.useState('');
+    const [tFLanguage, setTFLanguage] = React.useState('');
+    const [tTLanguage, setTTLanguage] = React.useState('');
+    
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
+
+    const handleChangeTF = (event) => {
+        setTFLanguage(event.target.value);
+    };
+
+    const handleChangeTT = (event) => {
+        setTTLanguage(event.target.value);
+    };
 
     const content = (
         <div style={{ height: "300px" }}>
@@ -36,26 +52,10 @@ export default function Home() {
         </div>
     );
 
-    const [value, setValue] = React.useState('Controlled');
-    const [translateFromLanguage, setTransFromLanguage] = React.useState('');
-    const [translateToLanguage, setTransToLanguage] = React.useState('');
-    
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-
-    const handleChangeTranslateFrom = (event) => {
-        setTransFromLanguage(event.target.translateFromLanguage);
-    };
-
-    const handleChangeTranslateTo = (event) => {
-        setTransToLanguage(event.target.translateToLanguage);
-    };
-
     return (
         <div>
             <div style={{
-                marginTop: "1lem",
+                marginTop: "1em",
                 alignItems: "center",
                 display: "flex",
                 justifyContent: "space-between",
@@ -69,14 +69,14 @@ export default function Home() {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={translateFromLanguage}
+                                value={tFLanguage}
                                 label="Translate"
-                                onChange={handleChangeTranslateFrom}
+                                onChange={handleChangeTF}
                             >
-                                <MenuItem value={10}>English</MenuItem>
-                                <MenuItem value={10}>German</MenuItem>
-                                <MenuItem value={20}>French</MenuItem>
-                                <MenuItem value={30}>Greek</MenuItem>
+                                <MenuItem value={"english"}>English</MenuItem>
+                                <MenuItem value={"german"}>German</MenuItem>
+                                <MenuItem value={"french"}>French</MenuItem>
+                                <MenuItem value={"greek"}>Greek</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
@@ -91,9 +91,9 @@ export default function Home() {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={translateToLanguage}
+                                value={tTLanguage}
                                 label="Translate"
-                                onChange={handleChangeTranslateTo}
+                                onChange={handleChangeTT}
                             >
                                 <MenuItem value={10}>English</MenuItem>
                                 <MenuItem value={10}>German</MenuItem>
@@ -127,20 +127,22 @@ export default function Home() {
                             <Grid item xs>
                                 <Box
                                     component="form"
-                                    sx={{
-                                        '& .MuiTextField-root': { width: '60ch' },
-                                    }}
                                     noValidate
                                     autoComplete="off"
                                 >
                                     <div>
                                         <TextField
-                                            id="outlined-multiline-flexible"
-                                            label="Multiline"
+                                            variant="standard"
+                                            id="outlined-textarea"
+                                            placeholder="Enter some text"
                                             multiline
+                                            fullWidth
                                             maxRows={10}
                                             value={value}
                                             onChange={handleChange}
+                                            InputProps={{
+                                                disableUnderline: true, // <== added this
+                                            }}
                                         />
                                     </div>
 
@@ -157,8 +159,6 @@ export default function Home() {
                                     textTransform: 'none',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    flexWrap: 'wrap'
                                 }}>
                                 <CloudUploadIcon />
                                 Upload a .docx, .pdf
