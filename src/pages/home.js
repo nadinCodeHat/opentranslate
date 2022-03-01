@@ -13,6 +13,7 @@ import Select from '@mui/material/Select';
 import MuiGrid from '@mui/material/Grid';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import TextField from '@mui/material/TextField';
+import './home.scss';
 
 const Input = styled('input')({
     display: 'none',
@@ -46,22 +47,13 @@ export default function Home() {
 
     const content = (
         <div style={{ height: "300px" }}>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-       Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-       Sed malesuada lobortis pretium.`}
+            {`Translated text goes here...`}
         </div>
     );
 
     return (
-        <div>
-            <div style={{
-                marginTop: "1em",
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "space-between",
-                maxWidth: "65em",
-                margin: "0 auto",
-            }}>
+        <div style={{ marginTop: "1em" }}>
+            <div className='translate-div'>
                 <div style={{ width: 500 }}>
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth size="small">
@@ -105,16 +97,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate( -50%, -50%)",
-                display: "flex",
-                justifyContent: "space-between",
-                maxWidth: "67em",
-                margin: "0 auto",
-            }} >
+            <div className='card-div'>
                 <Card
                     sx={{
                         width: 520,
@@ -137,11 +120,11 @@ export default function Home() {
                                             placeholder="Enter some text"
                                             multiline
                                             fullWidth
-                                            maxRows={10}
+                                            rows={13}
                                             value={value}
                                             onChange={handleChange}
                                             InputProps={{
-                                                disableUnderline: true, // <== added this
+                                                disableUnderline: true,
                                             }}
                                         />
                                     </div>
@@ -154,13 +137,12 @@ export default function Home() {
                     <CardActions>
                         <label htmlFor="text-button-file">
                             <Input accept=".doc,.docx,.pdf" id="text-button-file" multiple type="file" />
-                            <Button variant="text" component="span"
-                                style={{
+                            <Button variant="text" component="span" startIcon={<CloudUploadIcon />}
+                                sx={{
                                     textTransform: 'none',
                                     display: 'flex',
                                     alignItems: 'center',
                                 }}>
-                                <CloudUploadIcon />
                                 Upload a .docx, .pdf
                             </Button>
                         </label>

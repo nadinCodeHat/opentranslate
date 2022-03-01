@@ -1,0 +1,18 @@
+.translate-div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    max-width: 65em;
+    margin: 0 auto;
+}
+
+.card-div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    max-width: 67em;
+    margin: 0 auto;
+}
