@@ -51,7 +51,7 @@ export default function Home() {
   );
 
   // new line start
-  const [profileData, setProfileData] = useEffect(null);
+  const [profileData, setProfileData] = useState(null);
 
   function getData() {
     axios({
@@ -147,7 +147,7 @@ export default function Home() {
                       autoFocus={true}
                       fullWidth
                       rows={13}
-                      value={this.state.value}
+                      value={value}
                       onChange={getData}
                       InputProps={{
                         disableUnderline: true,
@@ -194,13 +194,15 @@ export default function Home() {
           <CardContent>
             <Grid container>
               <Grid item xs>
-                {content}
+               {/*  {content} */}
+               <button onClick={getData}>Click me</button>
                 {profileData && (
                   <div>
+                    console.log('I was triggered during render')
                     <p>Profile name: {profileData.profile_name}</p>
                     <p>About me: {profileData.about_me}</p>
                   </div>
-                )}
+                )} 
               </Grid>
             </Grid>
           </CardContent>
