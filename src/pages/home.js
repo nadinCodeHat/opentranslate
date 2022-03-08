@@ -39,10 +39,12 @@ export default function Home() {
   };
 
   const handleChangeTF = (event) => {
+    event.preventDefault();
     setTFLanguage(event.target.value);
   };
 
   const handleChangeTT = (event) => {
+    event.preventDefault();
     setTTLanguage(event.target.value);
   };
 
@@ -91,10 +93,10 @@ export default function Home() {
                 label="Translate"
                 onChange={handleChangeTF}
               >
-                <MenuItem value={"english"}>English</MenuItem>
-                <MenuItem value={"german"}>German</MenuItem>
-                <MenuItem value={"french"}>French</MenuItem>
-                <MenuItem value={"greek"}>Greek</MenuItem>
+                <MenuItem value={"en"}>English</MenuItem>
+                <MenuItem value={"de"}>German</MenuItem>
+                <MenuItem value={"fr"}>French</MenuItem>
+                <MenuItem value={"el"}>Greek</MenuItem>
               </Select>
             </FormControl>
           </Box>

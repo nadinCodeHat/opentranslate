@@ -1,12 +1,14 @@
-import time
-from transformers import *
 from flask import Flask
+from flask_restful import Resource, Api, reqparse
+from transformers import *
+import tensorflow as tf
 
 api = Flask(__name__)
 
 
-@api.route('/profile')
+@api.route('/add', methods=["POST"], strict_slashes=False)
 def my_profile():
+    
     response_body = {
         "name": "Nadin",
         "about": "Hello World"
