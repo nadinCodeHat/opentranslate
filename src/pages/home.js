@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,29 +28,45 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 }));
 
 export default function Home() {
-  const [value, setValue] = React.useState("");
-  const [tFLanguage, setTFLanguage] = React.useState("");
-  const [tTLanguage, setTTLanguage] = React.useState("");
+  // Translation state variables
+  const [translateFromLang, setTranslateFromLang] = React.useState("");
+  const [translateToLang, setTranslateToLang] = React.useState("");
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // Input text state variable
+  const [translateText, setTranslateText] = React.useState("");
 
-  const handleChangeTF = (event) => {
+  // Handle translation from
+  const handleChangeTranslationFrom = (event) => {
     event.preventDefault();
-    setTFLanguage(event.target.value);
+    setTranslateFromLang(event.target.value);
   };
 
-  const handleChangeTT = (event) => {
+  // Handle translation to
+  const handleChangeTranslationTo = (event) => {
     event.preventDefault();
-    setTTLanguage(event.target.value);
+    setTranslateToLang(event.target.value);
   };
 
-  const content = (
-    <div style={{ height: "300px" }}>{`Translated text goes here...`}</div>
-  );
+  // Handle input text
+  const handleChangeTranslate = (event) => {
+    event.preventDefault();
+    setTranslateText(event.target.value);
+    var text = {
+      inputtext: translateText,
+    };
+    axios
+      .post("http://localhost:5000/translate", text)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setTranslateText("");
+  };
 
   // new line start
+  /*
   const [profileData, setProfileData] = useState(null);
 
   function getData() {
@@ -63,8 +77,7 @@ export default function Home() {
       .then((response) => {
         const res = response.data;
         setProfileData({
-          profile_name: res.name,
-          about_me: res.about,
+          translated_text: res.translatedtext,
         });
       })
       .catch((error) => {
@@ -75,13 +88,14 @@ export default function Home() {
         }
       });
   }
+  */
   //end of new line
 
   return (
     <div style={{ marginTop: "1em" }}>
       <div className="translate-div">
-        <div style={{ width: 500 }}>
-          <Box sx={{ minWidth: 120 }}>
+        <div style={{ width: 500, display: "flex" }}>
+          <Box sx={{ minWidth: 400 }}>
             <FormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">
                 Translate from
@@ -89,9 +103,9 @@ export default function Home() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={tFLanguage}
+                value={translateFromLang}
                 label="Translate"
-                onChange={handleChangeTF}
+                onChange={handleChangeTranslationFrom}
               >
                 <MenuItem value={"en"}>English</MenuItem>
                 <MenuItem value={"de"}>German</MenuItem>
@@ -100,6 +114,16 @@ export default function Home() {
               </Select>
             </FormControl>
           </Box>
+          <Button
+            //onClick={getData}
+            sx={{
+              marginLeft: "10px",
+              textTransform: "none",
+            }}
+            variant="contained"
+          >
+            Translate
+          </Button>
         </div>
 
         <CompareArrowsIcon />
@@ -113,9 +137,9 @@ export default function Home() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={tTLanguage}
+                value={translateToLang}
                 label="Translate"
-                onChange={handleChangeTT}
+                onChange={handleChangeTranslationTo}
               >
                 <MenuItem value={10}>English</MenuItem>
                 <MenuItem value={10}>German</MenuItem>
@@ -149,8 +173,8 @@ export default function Home() {
                       autoFocus={true}
                       fullWidth
                       rows={13}
-                      value={value}
-                      onChange={getData}
+                      value={translateText}
+                      onChange={handleChangeTranslate}
                       InputProps={{
                         disableUnderline: true,
                       }}
@@ -160,29 +184,6 @@ export default function Home() {
               </Grid>
             </Grid>
           </CardContent>
-
-          <CardActions>
-            <label htmlFor="text-button-file">
-              <Input
-                accept=".doc,.docx,.pdf"
-                id="text-button-file"
-                multiple
-                type="file"
-              />
-              <Button
-                variant="text"
-                component="span"
-                startIcon={<CloudUploadIcon />}
-                sx={{
-                  textTransform: "none",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                Upload a .docx, .pdf
-              </Button>
-            </label>
-          </CardActions>
         </Card>
 
         <Card
@@ -196,15 +197,12 @@ export default function Home() {
           <CardContent>
             <Grid container>
               <Grid item xs>
-               {/*  {content} */}
-               <button onClick={getData}>Click me</button>
-                {profileData && (
+                {/*  {content} */}
+                {/*profileData && (
                   <div>
-                    console.log('I was triggered during render')
-                    <p>Profile name: {profileData.profile_name}</p>
-                    <p>About me: {profileData.about_me}</p>
+                    <p>Translated Text: {profileData.translated_text}</p>
                   </div>
-                )} 
+                )*/}
               </Grid>
             </Grid>
           </CardContent>

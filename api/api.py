@@ -1,22 +1,17 @@
-from flask import Flask
-from flask_restful import Resource, Api, reqparse
-from transformers import *
-import tensorflow as tf
+from flask import Flask, request, jsonify
+# from flask_restful import Resource, Api, reqparse
+# from transformers import *
+# import tensorflow as tf
 
 api = Flask(__name__)
 
-
-@api.route('/add', methods=["POST"], strict_slashes=False)
-def my_profile():
+@api.route('/translate', methods=['GET', 'POST'])
+def translate():
+    data = request.get_json()
+    return jsonify(data)
     
-    response_body = {
-        "name": "Nadin",
-        "about": "Hello World"
-    }
-
-    return response_body
-
 # pipeline api
+"""
 def pipeline_api():
     src = "en"
     dst = "de"
@@ -35,3 +30,4 @@ def get_translation_model_and_tokenizer(src_lang, dst_lang):
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     # return them for use
     return model, tokenizer
+"""
