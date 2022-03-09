@@ -1,17 +1,22 @@
 from flask import Flask, request, jsonify
-# from flask_restful import Resource, Api, reqparse
-# from transformers import *
-# import tensorflow as tf
+from flask_cors import CORS
+from transformers import *
+import tensorflow as tf
 
 api = Flask(__name__)
+cors = CORS(api)
+
 
 @api.route('/translate', methods=['GET', 'POST'])
 def translate():
-    data = request.get_json()
+    inputText = request.values.get('inputtext')
+    src = request.values.get('srctext')
+    dst = request.values.get('dsttext')
     return jsonify(data)
-    
+
+
 # pipeline api
-"""
+
 def pipeline_api():
     src = "en"
     dst = "de"
@@ -21,7 +26,7 @@ def pipeline_api():
 
     translator = pipeline(task_name, model=model_name, tokenizer=model_name)
 
-
+"""
 def get_translation_model_and_tokenizer(src_lang, dst_lang):
     # construct our model name
     model_name = f"Helsinki-NLP/opus-mt-{src}-{dst}"

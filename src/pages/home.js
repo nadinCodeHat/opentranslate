@@ -27,6 +27,8 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
+const TRANSLATION_API_BASE_URL = "http://localhost:5000/translate";
+
 export default function Home() {
   // Translation state variables
   const [translateFromLang, setTranslateFromLang] = React.useState("");
@@ -51,45 +53,32 @@ export default function Home() {
   const handleChangeTranslate = (event) => {
     event.preventDefault();
     setTranslateText(event.target.value);
-    var text = {
-      inputtext: translateText,
-    };
+    //POST input text
     axios
-      .post("http://localhost:5000/translate", text)
+      .post(TRANSLATION_API_BASE_URL, {
+        inputText: translateText,
+        srctext: translateFromLang
+      })
       .then((res) => {
         console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    setTranslateText("");
-  };
 
-  // new line start
-  /*
-  const [profileData, setProfileData] = useState(null);
-
-  function getData() {
-    axios({
-      method: "GET",
-      url: "/profile",
-    })
-      .then((response) => {
-        const res = response.data;
-        setProfileData({
-          translated_text: res.translatedtext,
-        });
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+    //GET translated text
+    axios.get(TRANSLATION_API_BASE_URL, )
+    .then((response) => {
+      setTranslatedText(({
+        translated_text: response.data}))
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
         }
-      });
-  }
-  */
-  //end of new line
+    })
+  };
 
   return (
     <div style={{ marginTop: "1em" }}>
@@ -198,11 +187,11 @@ export default function Home() {
             <Grid container>
               <Grid item xs>
                 {/*  {content} */}
-                {/*profileData && (
+                {translatedText && (
                   <div>
-                    <p>Translated Text: {profileData.translated_text}</p>
+                    <p>Translated Text: {translatedText.translated_text}</p>
                   </div>
-                )*/}
+                )}
               </Grid>
             </Grid>
           </CardContent>
