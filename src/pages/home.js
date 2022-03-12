@@ -37,6 +37,9 @@ export default function Home() {
   // Input text state variable
   const [translateText, setTranslateText] = React.useState("");
 
+  // Translated text state variable
+  const [translatedText, setTranslatedText] = React.useState("");
+
   // Handle translation from
   const handleChangeTranslationFrom = (event) => {
     event.preventDefault();
@@ -50,34 +53,39 @@ export default function Home() {
   };
 
   // Handle input text
-  const handleChangeTranslate = (event) => {
+  const handleChangeTranslate = async (event) => {
     event.preventDefault();
     setTranslateText(event.target.value);
     //POST input text
-    axios
-      .post(TRANSLATION_API_BASE_URL, {
+    try {
+      await axios.post(TRANSLATION_API_BASE_URL, {
         inputText: translateText,
-        srctext: translateFromLang
+        srctext: translateFromLang,
+        dsttext: translateToLang
       })
       .then((res) => {
         console.log(res.data);
       })
-      .catch((error) => {
+    } catch(error) {
         console.log(error);
-      });
+    }
 
     //GET translated text
-    axios.get(TRANSLATION_API_BASE_URL, )
-    .then((response) => {
-      setTranslatedText(({
-        translated_text: response.data}))
-    }).catch((error) => {
+    
+    try {
+      await axios.get(TRANSLATION_API_BASE_URL, )
+      .then((response) => {
+        setTranslatedText(({
+          translated_text: response.data}))
+      })
+    } catch(error) {
       if (error.response) {
         console.log(error.response)
         console.log(error.response.status)
         console.log(error.response.headers)
         }
-    })
+    }
+    
   };
 
   return (
@@ -130,10 +138,10 @@ export default function Home() {
                 label="Translate"
                 onChange={handleChangeTranslationTo}
               >
-                <MenuItem value={10}>English</MenuItem>
-                <MenuItem value={10}>German</MenuItem>
-                <MenuItem value={20}>French</MenuItem>
-                <MenuItem value={30}>Greek</MenuItem>
+                <MenuItem value={"en"}>English</MenuItem>
+                <MenuItem value={"de"}>German</MenuItem>
+                <MenuItem value={"fr"}>French</MenuItem>
+                <MenuItem value={"el"}>Greek</MenuItem>
               </Select>
             </FormControl>
           </Box>
