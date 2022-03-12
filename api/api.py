@@ -9,30 +9,21 @@ cors = CORS(api)
 
 @api.route('/translate', methods=['GET', 'POST'])
 def translate():
-    inputText = request.values.get('inputtext')
-    src = request.values.get('srctext')
-    dst = request.values.get('dsttext')
-    return jsonify(data)
+        inputText = request.values.get('inputtext')
+        #src = request.values.get('srctext')
+        #dst = request.values.get('dsttext')
+
+        model, tokenizer = get_translation_model_and_tokenizer("en", "de")
+        inputs = tokenizer.encode(inputText, return_tensors="pt", max_length=512, truncation=True)
+        greedy_outputs = model.generate(inputs)
+        return jsonify(tokenizer.decode(greedy_outputs[0], skip_special_tokens=True))
 
 
-# pipeline api
-
-def pipeline_api():
-    src = "en"
-    dst = "de"
-
-    task_name = f"translation_{src}_to_{dst}"
-    model_name = f"Helsinki-NLP/opus-mt-{src}-{dst}"
-
-    translator = pipeline(task_name, model=model_name, tokenizer=model_name)
-
-"""
 def get_translation_model_and_tokenizer(src_lang, dst_lang):
     # construct our model name
-    model_name = f"Helsinki-NLP/opus-mt-{src}-{dst}"
+    model_name = f"Helsinki-NLP/opus-mt-{src_lang}-{dst_lang}"
     # initialize the tokenizer & model
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     # return them for use
     return model, tokenizer
-"""
