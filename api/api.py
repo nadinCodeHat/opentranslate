@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import *
-import tensorflow as tf
 
 api = Flask(__name__)
 cors = CORS(api)
@@ -9,10 +8,10 @@ cors = CORS(api)
 
 @api.route('/translate', methods=['GET', 'POST'])
 def translate():
-        inputText = request.values.get('inputtext')
+        #inputText = request.values.get('inputtext')
         #src = request.values.get('srctext')
         #dst = request.values.get('dsttext')
-
+        inputText = "Hello my name is Nadin"
         model, tokenizer = get_translation_model_and_tokenizer("en", "de")
         inputs = tokenizer.encode(inputText, return_tensors="pt", max_length=512, truncation=True)
         greedy_outputs = model.generate(inputs)

@@ -91,8 +91,8 @@ export default function Home() {
   return (
     <div style={{ marginTop: "1em" }}>
       <div className="translate-div">
-        <div style={{ width: 500, display: "flex" }}>
-          <Box sx={{ minWidth: 400 }}>
+        <div style={{ width: 500 }}>
+          <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">
                 Translate from
@@ -111,16 +111,6 @@ export default function Home() {
               </Select>
             </FormControl>
           </Box>
-          <Button
-            //onClick={getData}
-            sx={{
-              marginLeft: "10px",
-              textTransform: "none",
-            }}
-            variant="contained"
-          >
-            Translate
-          </Button>
         </div>
 
         <CompareArrowsIcon />
