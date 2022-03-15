@@ -1,0 +1,6 @@
+# pip install -r requirements.txt
+
+flask
+flask-cors
+transformers==4.12.4
+sentencepiece
