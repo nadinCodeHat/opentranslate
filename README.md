@@ -1,35 +1,42 @@
 # Open Translate
+
 Neural Machine Translation with React + Hugging Face Transformers + Docker
 
 # Setup and installation
-- run ```npm i && npm start``` to start the app
+## Frontend
 
-## Commit Guidelines
+- Run ```npm i && npm start``` to start the frontend
 
-### Format of the commit message
 
-```
-<type>(<scope>): <subject>
-```
+## Backend
 
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier to read on github as well as in various git tools.
+-  ```cd api```
 
-#### Allowed `<type>`
+- Create a virtual environment:
 
-- feat (feature)
-- fix (bug fix)
-- docs (documentation)
-- style (formatting, missing semi colons, …)
-- refactor
-- test (when adding missing tests)
-- chore (maintain)
+- For Unix based OS:
 
-#### Allowed `<scope>`
+- ```python3 -m venv venv```
 
-Scope could be anything specifying place of the commit change. For example $location, $browser, $compile, $rootScope, ngHref, ngClick, ngView, etc...
+- ```source venv/bin/activate```
 
-#### `<subject>` text
+- For Windows:
 
-- use imperative, present tense: “change” not “changed” nor “changes”
-- don't capitalize first letter
-- no dot (.) at the end
+- ```python -m venv venv```
+
+- ```venv\Scripts\activate```
+
+- Install tools and libraries inside venv: ```pip install -r requirements.txt```
+
+
+## Important
+
+[Pytorch](https://pytorch.org/) needs to be installed in order to execute translation.
+
+Please follow the instructions given: how to [get started](https://pytorch.org/get-started/locally/) with pytorch.
+Choose the compute platform carefully, if you have a GPU supported computer choose a CUDA version, if you do not have a GPU choose CPU as the compute platform.
+
+Run the command inside venv and make sure you have [CUDA](https://developer.nvidia.com/cuda-downloads) installed in your computer.
+
+
+- Run ```npm run start-api``` to start the backend
