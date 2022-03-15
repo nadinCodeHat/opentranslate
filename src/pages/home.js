@@ -1,23 +1,15 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import Select from "react-select";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import MuiGrid from "@mui/material/Grid";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import TextField from "@mui/material/TextField";
 import "./home.scss";
 import axios from "axios";
-
-const Input = styled("input")({
-  display: "none",
-});
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: "100%",
@@ -27,65 +19,82 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
-const TRANSLATION_API_BASE_URL = "http://localhost:5000/translate";
+const TRANSLATION_API_BASE_URL_POST = "http://localhost:5000/translate/post";
+const TRANSLATION_API_BASE_URL_GET = "http://localhost:5000/translate/get";
 
 export default function Home() {
+  const languages = [
+    {
+      value: "en",
+      label: "English",
+    },
+    {
+      value: "de",
+      label: "German",
+    },
+    {
+      value: "fr",
+      label: "French",
+    },
+    {
+      value: "el",
+      label: "Greek",
+    },
+  ];
+
   // Translation state variables
-  const [translateFromLang, setTranslateFromLang] = React.useState("");
-  const [translateToLang, setTranslateToLang] = React.useState("");
+  const [translateFromLang, setTranslateFromLang] = useState("");
+  const [translateToLang, setTranslateToLang] = useState("");
 
   // Input text state variable
-  const [translateText, setTranslateText] = React.useState("");
+  const [translateText, setTranslateText] = useState("");
 
   // Translated text state variable
-  const [translatedText, setTranslatedText] = React.useState("");
+  const [translatedText, setTranslatedText] = useState("");
 
   // Handle translation from
   const handleChangeTranslationFrom = (event) => {
-    event.preventDefault();
-    setTranslateFromLang(event.target.value);
+    setTranslateFromLang(event.value);
   };
 
   // Handle translation to
   const handleChangeTranslationTo = (event) => {
-    event.preventDefault();
-    setTranslateToLang(event.target.value);
+    setTranslateToLang(event.value);
   };
 
   // Handle input text
   const handleChangeTranslate = async (event) => {
-    event.preventDefault();
     setTranslateText(event.target.value);
     //POST input text
     try {
-      await axios.post(TRANSLATION_API_BASE_URL, {
-        inputText: translateText,
-        srctext: translateFromLang,
-        dsttext: translateToLang
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-    } catch(error) {
-        console.log(error);
+      await axios
+        .post(TRANSLATION_API_BASE_URL_POST, {
+          inputText: event.target.value,
+          srctext: translateFromLang,
+          dsttext: translateToLang,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+    } catch (error) {
+      console.log(error);
     }
 
     //GET translated text
     
     try {
-      await axios.get(TRANSLATION_API_BASE_URL, )
-      .then((response) => {
-        setTranslatedText(({
-          translated_text: response.data}))
-      })
-    } catch(error) {
+      await axios.get(TRANSLATION_API_BASE_URL_GET).then((response) => {
+        setTranslatedText({
+          translated_text: response.data,
+        });
+      });
+    } catch (error) {
       if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
-        }
+        console.log(error.response);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
     }
-    
   };
 
   return (
@@ -93,23 +102,12 @@ export default function Home() {
       <div className="translate-div">
         <div style={{ width: 500 }}>
           <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">
-                Translate from
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={translateFromLang}
-                label="Translate"
-                onChange={handleChangeTranslationFrom}
-              >
-                <MenuItem value={"en"}>English</MenuItem>
-                <MenuItem value={"de"}>German</MenuItem>
-                <MenuItem value={"fr"}>French</MenuItem>
-                <MenuItem value={"el"}>Greek</MenuItem>
-              </Select>
-            </FormControl>
+            <Select
+              placeholder="Translate From"
+              value={languages.find((obj) => obj.value === translateFromLang)}
+              options={languages}
+              onChange={handleChangeTranslationFrom}
+            ></Select>
           </Box>
         </div>
 
@@ -117,23 +115,12 @@ export default function Home() {
 
         <div style={{ width: 500 }}>
           <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">
-                Translate To
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={translateToLang}
-                label="Translate"
-                onChange={handleChangeTranslationTo}
-              >
-                <MenuItem value={"en"}>English</MenuItem>
-                <MenuItem value={"de"}>German</MenuItem>
-                <MenuItem value={"fr"}>French</MenuItem>
-                <MenuItem value={"el"}>Greek</MenuItem>
-              </Select>
-            </FormControl>
+            <Select
+              placeholder="Translate To"
+              value={languages.find((obj) => obj.value === translateToLang)}
+              options={languages}
+              onChange={handleChangeTranslationTo}
+            ></Select>
           </Box>
         </div>
       </div>
@@ -187,7 +174,7 @@ export default function Home() {
                 {/*  {content} */}
                 {translatedText && (
                   <div>
-                    <p>Translated Text: {translatedText.translated_text}</p>
+                    <p>{translatedText.translated_text}</p>
                   </div>
                 )}
               </Grid>
