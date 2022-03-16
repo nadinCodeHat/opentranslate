@@ -1,6 +1,6 @@
 # Open Translate
 
-Neural Machine Translation with React + Hugging Face Transformers + Docker
+Neural Machine Translation with React + Hugging Face Transformers
 
 # Setup and installation
 ## Frontend
