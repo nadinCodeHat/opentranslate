@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import MuiGrid from "@mui/material/Grid";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import "./home.scss";
 import axios from "axios";
 
@@ -23,11 +24,14 @@ const TRANSLATION_API_BASE_URL_POST = "http://localhost:5000/translate/post";
 const TRANSLATION_API_BASE_URL_GET = "http://localhost:5000/translate/get";
 
 export default function Home() {
-  const languages = [
+  const flanguage = [
     {
       value: "en",
       label: "English",
     },
+  ];
+
+  const tlanguage = [
     {
       value: "de",
       label: "German",
@@ -62,14 +66,13 @@ export default function Home() {
     setTranslateToLang(event.value);
   };
 
-  // Handle input text
+  // Handle text translation
   const handleChangeTranslate = async (event) => {
-    setTranslateText(event.target.value);
     //POST input text
     try {
       await axios
         .post(TRANSLATION_API_BASE_URL_POST, {
-          inputText: event.target.value,
+          inputText: translateText,
           srctext: translateFromLang,
           dsttext: translateToLang,
         })
@@ -81,7 +84,6 @@ export default function Home() {
     }
 
     //GET translated text
-    
     try {
       await axios.get(TRANSLATION_API_BASE_URL_GET).then((response) => {
         setTranslatedText({
@@ -98,14 +100,15 @@ export default function Home() {
   };
 
   return (
-    <div style={{ marginTop: "1em" }}>
+    <div style={{ marginTop: "5em" }}>
       <div className="translate-div">
+        {/* Translate language from */}
         <div style={{ width: 500 }}>
           <Box sx={{ minWidth: 120 }}>
             <Select
               placeholder="Translate From"
-              value={languages.find((obj) => obj.value === translateFromLang)}
-              options={languages}
+              value={flanguage.find((obj) => obj.value === translateFromLang)}
+              options={flanguage}
               onChange={handleChangeTranslationFrom}
             ></Select>
           </Box>
@@ -113,19 +116,20 @@ export default function Home() {
 
         <CompareArrowsIcon />
 
+        {/* Translate language to */}
         <div style={{ width: 500 }}>
           <Box sx={{ minWidth: 120 }}>
             <Select
               placeholder="Translate To"
-              value={languages.find((obj) => obj.value === translateToLang)}
-              options={languages}
+              value={tlanguage.find((obj) => obj.value === translateToLang)}
+              options={tlanguage}
               onChange={handleChangeTranslationTo}
             ></Select>
           </Box>
         </div>
       </div>
 
-      <div className="card-div">
+      <div className="cards-div">
         <Card
           sx={{
             width: 520,
@@ -142,13 +146,12 @@ export default function Home() {
                     <TextField
                       variant="standard"
                       id="outlined-textarea"
-                      placeholder="Enter some text"
+                      placeholder="Enter some text here..."
                       multiline
                       autoFocus={true}
                       fullWidth
                       rows={13}
-                      value={translateText}
-                      onChange={handleChangeTranslate}
+                      onChange={(e) => setTranslateText(e.target.value)}
                       InputProps={{
                         disableUnderline: true,
                       }}
@@ -182,6 +185,18 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
+      <Button
+        sx={{
+          display: "block",
+          width: "74em",
+          height: "3em",
+          margin: "10px auto 0px auto",
+        }}
+        variant="contained"
+        onClick={handleChangeTranslate}
+      >
+        Translate
+      </Button>
     </div>
   );
 }
