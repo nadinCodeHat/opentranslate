@@ -2,5 +2,6 @@
 
 flask
 flask-cors
-transformers==4.12.4
+python-dotenv
+transformers[torch]
 sentencepiece
