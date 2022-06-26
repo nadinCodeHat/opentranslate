@@ -6,18 +6,19 @@ import json
 api = Flask(__name__)
 cors = CORS(api)
 
+
 @api.route('/translate/post', methods=['POST'])
 def recieve():
     data = request.get_json()
     json_str = json.dumps(data)
     resp = json.loads(json_str)
-    
+
     global inputText, src, dst
 
     inputText = resp['inputText']
     src = resp['srctext']
     dst = resp['dsttext']
-    
+
     return "200 OK"
 
 
